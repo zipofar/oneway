@@ -27,5 +27,14 @@ class CTestData extends BaseController
         $p->insertInto('photos', ['person_id' => '1', 'pathphoto' => 'photos/photo_person_0002.jpg']);
         $p->insertInto('photos', ['person_id' => '1', 'pathphoto' => 'photos/photo_person_0003.jpg']);
 
+        $p->insertInto('ipvotings', ['ip' => ip2long('192.168.0.1'), 'photo_id' => '1', 'like' => '1']);
+        $p->insertInto('ipvotings', ['ip' => ip2long('192.168.0.2'), 'photo_id' => '1', 'like' => '1']);
+        $p->insertInto('ipvotings', ['ip' => ip2long('192.168.0.3'), 'photo_id' => '1', 'like' => '1']);
+
+        $p->insertInto('ipvotings', ['ip' => ip2long('192.168.0.3'), 'photo_id' => '2', 'like' => '1']);
+
+        $p->insertInto('ipvotings', ['ip' => ip2long('192.168.0.3'), 'photo_id' => '3', 'like' => '1']);
+        $p->insertInto('ipvotings', ['ip' => ip2long('192.168.0.33'), 'photo_id' => '3', 'like' => '1']);
+
     }
 }

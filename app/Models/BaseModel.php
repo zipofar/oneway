@@ -21,6 +21,7 @@ class BaseModel
 
         $sql_data = $this->prepareInsertData($data);
         $sql = "INSERT INTO ".$tablename." SET ".$sql_data;
+        var_dump($data);
         $stmt = $this->DB->prepare($sql);
         $stmt->execute($data);
     }
@@ -51,10 +52,17 @@ class BaseModel
         return $arr;
     }
 
+    /**
+     * @param $tablename
+     * @param $cond1 condition 1
+     * @param $oper  comparison operator = < >
+     * @param $cond2 condition 2
+     * @return array
+     */
     protected function getWhere($tablename, $cond1, $oper, $cond2) {
 
         $arr = array();
-        $sql = "SELECT * FROM ".$tablename." WHERE ".$cond1." = ?";
+        $sql = "SELECT * FROM ".$tablename." WHERE ".$cond1." ".$oper." ?";
         $stmt = $this->DB->prepare($sql);
         $stmt->execute([$cond2]);
         $p = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -62,5 +70,16 @@ class BaseModel
             $arr[$key] = $val;
         }
         return $arr;
+    }
+
+    protected function getCountRecords($tablename, $cond1, $oper, $cond2) {
+
+        $arr = array();
+        $sql = "SELECT COUNT(*) as count FROM ".$tablename." WHERE ".$cond1." ".$oper." ?";
+        $stmt = $this->DB->prepare($sql);
+        $stmt->execute([$cond2]);
+        $p = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $p['count'];
     }
 }

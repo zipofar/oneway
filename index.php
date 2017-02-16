@@ -12,5 +12,5 @@ require_once BASEPATH."/app/Controllers/CTestData.php";
 
 $person = new CPerson();
 $person->index(1);
-/*$city = new CTestData();
-$city->insertTestData();*/
+//$city = new CTestData();
+//$city->insertTestData();

@@ -9,9 +9,9 @@ class CPerson extends BaseController
 
 
         $person = new MPerson();
-        $person->getPerson($id);
+        $data = $person->getPerson($id);
 
 
-        $this->view('person', array('person' => $person));
+        $this->view('person', array('person' => $data));
     }
 }

@@ -45,8 +45,8 @@ CREATE TABLE `places` (
 
 CREATE TABLE `ipvotings` (
 	`id` bigint NOT NULL AUTO_INCREMENT,
-	`ip` int NOT NULL,
-	`person_id` bigint NOT NULL,
+	`ip` bigint NOT NULL,
+	`photo_id` bigint NOT NULL,
 	`like` bool NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -61,5 +61,5 @@ ALTER TABLE `places` ADD CONSTRAINT `places_fk0` FOREIGN KEY (`city_id`) REFEREN
 
 ALTER TABLE `places` ADD CONSTRAINT `places_fk1` FOREIGN KEY (`country_id`) REFERENCES `countrys`(`id`);
 
-ALTER TABLE `ipvotings` ADD CONSTRAINT `ipvotings_fk0` FOREIGN KEY (`person_id`) REFERENCES `persons`(`id`);
+ALTER TABLE `ipvotings` ADD CONSTRAINT `ipvotings_fk0` FOREIGN KEY (`photo_id`) REFERENCES `photos`(`id`);
 
