@@ -30,32 +30,19 @@ function renderPersonBirthdat(selector) {
         day: 'numeric',
     };
 	var date_str = date.toLocaleString("ru", options).slice(-100, -3);
-	var amount_years = getAmountYears(date);
-	console.log(amount_years);
+	var dataBirthday = getDataBirthday(date);
+	console.log(dataBirthday.years);
 
-	$("#birthday_str").html(date_str + ", " + amount_years + " лет");
-	$("#birthday_reminder").html(timestamp_birthday);
+	$("#birthday_str").html(date_str + ", " + dataBirthday.years + " лет");
+	$("#birthday_reminder").html("2 месяца и 13 дней до ДР");
 
 }
 
-function getRemainBirthday(date) {
+function getDataBirthday(date) {
+	// date = new Date(1986, 1, 1);
 
-	// date = new Date(1986, 1, 20);
-    // date.setFullYear(new Date().getFullYear())
-
-
-    // return months;
-}
-
-function getAmountYears(date) {
-	date = new Date(1986, 1, 10);
 	var brth_year = date.getFullYear();
-	var brth_month = date.getMonth();
-	var brth_day = date.getDate();
-
 	var curent_year = new Date().getFullYear();
-	var curent_month = new Date().getMonth();
-	var curent_day = new Date().getDate();
 
 	/*
 	Определяем количество лет
@@ -73,24 +60,23 @@ function getAmountYears(date) {
 	 */
     var months = "";
     var days = "";
+	var tmp = "";
 
     if( dateCurrentBirth > new Date() ) {
 
-        months = brth_month - curent_month;
-        days = brth_day - curent_day;
+        tmp = new Date(dateCurrentBirth - new Date());
+        months = tmp.getMonth();
+        days = tmp.getDate();
 
-        if( new Date(new Date().setMonth(brth_month)) > dateCurrentBirth ) {
-            months = brth_month - curent_month - 1;
-            days = curent_day - brth_day;
-        }
 
 	} else if( dateCurrentBirth < new Date() ) {
 
-    	months = 11 - curent_month + brth_month;
-        days = brth_day - curent_day;
+    	dateCurrentBirth.setFullYear(curent_year + 1); //Если день рождения уже прошел, то к дате дня рождения в текущем году прибавим год
+        tmp = new Date(dateCurrentBirth - new Date());
+        months = tmp.getMonth();
+        days = tmp.getDate();
+
 	}
 
-
-
-	return months;
+	return {years: years, months: months, days: days};
 }
