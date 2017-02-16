@@ -27,8 +27,9 @@
 								</li>
 								<li>
 									<i class="i_icon-2"></i>
-									<p>26 октября 1986, 28 лет</p>
-									<span>2 месяца и 13 дней до ДР</span>
+                                    <input type="hidden" value="<?php echo $person['birthday']; ?>" id="birthday_timestamp" />
+									<p id="birthday_str">26 октября 1986, 28 лет</p>
+									<span id="birthday_reminder">2 месяца и 13 дней до ДР</span>
 								</li>
 							</ul>
 						</div>
@@ -39,7 +40,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="aside__background" style="background-image: url(img/img_person-1.jpg);"></div>
+				<div class="aside__background" style="background-image: url(img/<?php echo $person['avatar']; ?>);"></div>
 			</div>
 			<div class="content">
 				<div class="bl_table">
