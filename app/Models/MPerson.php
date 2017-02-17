@@ -5,7 +5,11 @@ require_once BASEPATH."/app/Models/BaseModel.php";
 class MPerson extends BaseModel
 {
 
-    public function getPerson($id) {
+    private $ip = "";
+
+    public function getPerson($id, $ip) {
+
+        $this->ip = $ip;
 
         $person = $this->getById('persons', $id);
 
@@ -19,10 +23,9 @@ class MPerson extends BaseModel
 
         $photos = $this->getWhere('photos', 'person_id', '=', $id);
 
-//        $arr_photos = array_map(function($arr) {return $arr['pathphoto'];}, $photos);
-
         $count_likes = array_map(function($arr) {
-            $arr['count_likes'] = $this->getCountRecords('ipvotings', 'photo_id', '=', $arr['id']);
+            $arr['count_likes'] = $this->getCountLikes('ipvotings', 'photo_id', '=', $arr['id']);
+            $arr['is_like'] = $this->getLike($arr['id'], $this->ip);
             return $arr;
         }, $photos);
 
@@ -34,6 +37,17 @@ class MPerson extends BaseModel
         $person['photos'] = $count_likes;
 
         return $person;
+    }
+
+    private function getLike($photo_id, $ip) {
+
+        $sql = "SELECT * FROM ipvotings WHERE photo_id = ? AND ip = ?";
+        $stmt = $this->DB->prepare($sql);
+        $stmt->execute([$photo_id, $ip]);
+        $p = $stmt->fetch(PDO::FETCH_ASSOC);
+        $p = ($p === false)? 0 : intval($p['like']);
+
+        return $p;
     }
 
 }

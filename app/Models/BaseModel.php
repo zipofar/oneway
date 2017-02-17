@@ -21,7 +21,6 @@ class BaseModel
 
         $sql_data = $this->prepareInsertData($data);
         $sql = "INSERT INTO ".$tablename." SET ".$sql_data;
-        var_dump($data);
         $stmt = $this->DB->prepare($sql);
         $stmt->execute($data);
     }
@@ -72,10 +71,10 @@ class BaseModel
         return $arr;
     }
 
-    protected function getCountRecords($tablename, $cond1, $oper, $cond2) {
+    protected function getCountLikes($tablename, $cond1, $oper, $cond2) {
 
         $arr = array();
-        $sql = "SELECT COUNT(*) as count FROM ".$tablename." WHERE ".$cond1." ".$oper." ?";
+        $sql = "SELECT COUNT(*) as count FROM ".$tablename." WHERE ".$cond1." ".$oper." ? AND `like` = 1";
         $stmt = $this->DB->prepare($sql);
         $stmt->execute([$cond2]);
         $p = $stmt->fetch(PDO::FETCH_ASSOC);

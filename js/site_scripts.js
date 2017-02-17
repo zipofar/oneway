@@ -31,7 +31,6 @@ function renderPersonBirthdat(selector) {
     };
 	var date_str = date.toLocaleString("ru", options).slice(-100, -3);
 	var dataBirthday = getInfoBirthday(date);
-	console.log(dataBirthday);
 
 	$("#birthday_str").html(date_str + ", " + dataBirthday.years + " лет");
 
@@ -47,9 +46,6 @@ function renderPersonBirthdat(selector) {
 	else {
         $("#birthday_reminder").html(dataBirthday.months + " " + kind_month + " и " + dataBirthday.days + " " + kind_day + " до ДР");
 	}
-
-		// $("#birthday_reminder").html("2 месяца и 13 дней до ДР");
-
 }
 
 function getKindOfDay (day) {
@@ -122,4 +118,23 @@ function getInfoBirthday(date) {
 	}
 
 	return {years: years, months: months, days: days};
+}
+
+function setLike(id_photo, id_element) {
+
+	$.ajax({
+        type: "POST",
+        url: "/test-work/index.php",
+        data: "id_photo="+id_photo,
+        async: true,
+        success: function(msg){
+        	msg = JSON.parse(msg);
+            var is_like = 0;
+            is_like = msg.is_like;
+			var count_likes = $("#like-"+id_element+"").next().children("span").text() * 1;
+            count_likes = (is_like == 0)? count_likes - 1 : count_likes + 1;
+            $("#like-"+id_element+"").next().children("span").text(count_likes);
+        }
+    });
+
 }

@@ -9,7 +9,7 @@ class BaseController
         $this->data = $data;
         unset($data);
         extract($this->data);
-        var_dump($person);
+//        var_dump($person);
         require_once BASEPATH."/view/".$view_name.".php";
     }
 }
