@@ -1,5 +1,5 @@
 <?php
-
+defined('BASEPATH') or die;
 
 class BaseModel
 {
@@ -38,17 +38,17 @@ class BaseModel
         return $sql;
     }
 
-    protected function getById($tablename, $id) {
+    public function getById($tablename, $id) {
 
-        $arr = array();
         $sql = "SELECT * FROM ".$tablename." WHERE id = :id";
 
         $stmt = $this->DB->prepare($sql);
         $stmt->execute(['id' => $id]);
-        foreach($stmt->fetch(PDO::FETCH_ASSOC) as $key => $val) {
-            $arr[$key] = $val;
-        }
-        return $arr;
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+//        foreach($stmt->fetch(PDO::FETCH_ASSOC) as $key => $val) {
+//            $arr[$key] = $val;
+//        }
+        return $res;
     }
 
     /**

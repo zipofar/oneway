@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') or die;
 
 require_once BASEPATH."/app/Models/BaseModel.php";
 
@@ -12,6 +13,7 @@ class MPerson extends BaseModel
         $this->ip = $ip;
 
         $person = $this->getById('persons', $id);
+        if($person === false) { return false; }
 
         $place = $this->getById('places', $person['place_id']);
 

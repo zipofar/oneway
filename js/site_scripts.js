@@ -128,12 +128,18 @@ function setLike(id_photo, id_element) {
         data: "id_photo="+id_photo,
         async: true,
         success: function(msg){
+        	console.log(msg);
         	msg = JSON.parse(msg);
+        	if(msg.error) { alert(msg.error); return; }
+        	console.log(msg);
             var is_like = 0;
             is_like = msg.is_like;
 			var count_likes = $("#like-"+id_element+"").next().children("span").text() * 1;
             count_likes = (is_like == 0)? count_likes - 1 : count_likes + 1;
             $("#like-"+id_element+"").next().children("span").text(count_likes);
+        },
+		error: function () {
+			alert("Error: no server connection");
         }
     });
 

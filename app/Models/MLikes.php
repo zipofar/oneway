@@ -1,4 +1,5 @@
 <?php
+defined('BASEPATH') or die;
 
 require_once BASEPATH."/app/Models/BaseModel.php";
 

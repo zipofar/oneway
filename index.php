@@ -15,7 +15,7 @@ if(!empty($_POST)) {
     require_once BASEPATH."/app/Controllers/CLikes.php";
     $like = new CLikes();
     $is_like = $like->setLikes($id_photo);
-    echo json_encode(array("is_like"=>$is_like));
+    echo $is_like;
 }
 else {
 
