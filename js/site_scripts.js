@@ -20,6 +20,7 @@ $(document).ready(function(){
 	renderPersonBirthdat("birthday_timestamp");
 });
 
+
 function renderPersonBirthdat(selector) {
 
 	var timestamp_birthday = $("#"+selector).val();
@@ -122,16 +123,17 @@ function getInfoBirthday(date) {
 
 function setLike(id_photo, id_element) {
 
+	var uri = window.location.pathname;
+    uri = uri.substr(0, uri.indexOf("/", 1));
+
 	$.ajax({
         type: "POST",
-        url: "/test-work/index.php",
+        url: uri + "/index.php",
         data: "id_photo="+id_photo,
         async: true,
         success: function(msg){
-        	console.log(msg);
         	msg = JSON.parse(msg);
         	if(msg.error) { alert(msg.error); return; }
-        	console.log(msg);
             var is_like = 0;
             is_like = msg.is_like;
 			var count_likes = $("#like-"+id_element+"").next().children("span").text() * 1;
